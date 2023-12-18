@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>학교종이 땡땡땡</title>
+    <link rel="stylesheet" href="css/global.css" type="text/css">
+    <link rel="stylesheet" href="css/rank.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <header class="navbox">
+        <nav>
+            <h1>
+                <button class="main">
+                    <a href="main">학교종이 땡땡땡</a>
+                </button>
+            </h1>
+            <ul>
+                <li>
+                    <button class="ranking">
+                        <a href="rank">랭킹</a>
+                    </button>
+                </li>
+                <li>
+                    <button class="calendar">
+                        <a href="#">캘린더</a>
+                    </button>
+                </li>
+                <li>
+                    <button class="student-management">
+                        <a href="#">학생관리</a>
+                    </button>
+                </li>
+                <li>
+                    <button class="mypage">
+                        <a href="#">마이페이지</a>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <article class="rank">
+        <!---------------------------반 랭킹-------------------------------------->
+        <div class="rank-total">
+            <div class="rank-main">
+                <div class="rank-main-1">종합순위</div>
+                <div class="category-button"><button class="category-button-1">테마</button></div>
+                <div class="student-button"><button class="student-button-1">학생</button></div>
+            </div>
+            <div class="ranking-page">
+                <div class="ranking-page-1">등수 <br>1 <br>2 <br>3 <br>4 <br>5 <br>6 <br>7 <br>8 <br>9 <br>10
+                </div>
+                <div class="ranking-page-2">이름</div>
+                <div class="ranking-page-3">점수</div>
+            </div>
+            <div class="studenttb">
+                <table id="studenttb">
+                    <tr th:each="student : ${students}">   <!--foreach 문 표현식-->
+                        <td th:text="${student.name}" style="background-color: white"></td>
+                        <td th:text="${student.score}" style="background-color: white"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-----------------------------테마별 1등---------------------------------------->
+        <div class="rank-winner">
+            <div class="rank-box">테마별 랭킹</div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 배려 <div class="rank-winner-1-1"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 사교<div class="rank-winner-1-2"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 긍정 <div class="rank-winner-1-3"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 책임<div class="rank-winner-1-4"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 성실<div class="rank-winner-1-5"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 도움<div class="rank-winner-1-6"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 예의<div class="rank-winner-1-7"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 봉사<div class="rank-winner-1-8"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 리더십<div class="rank-winner-1-9"></div>
+            </div>
+            <div class="rank-winner-1">
+                <i class="bi bi-trophy-fill" id="trophy"></i> 끈기<div class="rank-winner-1-10"></div>
+            </div>
+
+        </div>
+        <!---------------------------------랭킹단상------------------------------------->
+        <div class="rank-platform">
+            <div class="first-rank">정민식</div>
+            <div class="second-rank">백종환</div>
+            <div class="third-rank">김기유</div>
+        </div>
+
+    </article>
+
+
+</body>
+</html>

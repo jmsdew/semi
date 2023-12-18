@@ -1,0 +1,10 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/kbjdb
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: kbj
+        password: kbj
+
+mybatis:
+    mapper-locations: classpath:resources/mapper/*.xml
+    config-location: classpath:mapper/mapper-config.xml
