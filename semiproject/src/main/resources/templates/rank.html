@@ -11,14 +11,14 @@
     <header class="navbox">
         <nav>
             <h1>
-                <button class="main">
-                    <a href="main">학교종이 땡땡땡</a>
+                <button class="main" onclick="location.href='main'">
+                    학교종이 땡땡땡
                 </button>
             </h1>
             <ul>
                 <li>
-                    <button class="ranking">
-                        <a href="rank">랭킹</a>
+                    <button class="ranking" onclick="location.href='rank'">
+                        랭킹
                     </button>
                 </li>
                 <li>
@@ -45,11 +45,12 @@
         <div class="rank-total">
             <div class="rank-main">
                 <div class="rank-main-1">종합순위</div>
-                <div class="category-button"><button class="category-button-1">테마</button></div>
+                <div class="category-button"><button class="category-button-1" id="popupClick">테마</button></div>
                 <div class="student-button"><button class="student-button-1">학생</button></div>
             </div>
             <div class="ranking-page">
-                <div class="ranking-page-1">등수 <br>1 <br>2 <br>3 <br>4 <br>5 <br>6 <br>7 <br>8 <br>9 <br>10
+                <div class="ranking-page-1">등수 <br>
+                    <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p><p>10</p>
                 </div>
                 <div class="ranking-page-2">이름</div>
                 <div class="ranking-page-3">점수</div>
@@ -63,50 +64,87 @@
                 </table>
             </div>
         </div>
+
+        <div class="popup">
+            <div class="popup-div">
+                <button class="popup1-button" onclick="location.href='temaRank1'">배려</button>
+                <button class="popup1-button" onclick="location.href='temaRank2'">사교</button>
+                <button class="popup1-button" onclick="location.href='temaRank3'">긍정</button>
+                <button class="popup1-button" onclick="location.href='temaRank4'">책임</button>
+                <button class="popup1-button" onclick="location.href='temaRank5'">성실</button>
+                <button class="popup1-button" onclick="location.href='temaRank6'">도움</button>
+                <button class="popup1-button" onclick="location.href='temaRank7'">예의</button>
+                <button class="popup1-button" onclick="location.href='temaRank8'">봉사</button>
+                <button class="popup1-button" onclick="location.href='temaRank9'">리더십</button>
+                <button class="popup1-button" onclick="location.href='temaRank10'">끈기</button>
+            </div>
+        </div>
         <!-----------------------------테마별 1등---------------------------------------->
         <div class="rank-winner">
-            <div class="rank-box">테마별 랭킹</div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 배려 <div class="rank-winner-1-1"></div>
+            <div class="rank-box">테마별 1등</div>
+                <div class="rank-winner-1">
+                    <table id="ranktb">
+                        <tr th:each="rank1 : ${ranking}">   <!--foreach 문 표현식-->
+                            <td><i class="bi bi-trophy" id="trophy"></i> </td>
+                            <td th:text="${rank1.categoryName}" style="background-color: white"></td>
+                            <td th:text="${rank1.name}" style="background-color: white"></td>
+                            <td th:text="${rank1.score}" style="background-color: white"></td>
+                        </tr>
+                    </table>
             </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 사교<div class="rank-winner-1-2"></div>
-            </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 긍정 <div class="rank-winner-1-3"></div>
-            </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 책임<div class="rank-winner-1-4"></div>
-            </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 성실<div class="rank-winner-1-5"></div>
-            </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 도움<div class="rank-winner-1-6"></div>
-            </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 예의<div class="rank-winner-1-7"></div>
-            </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 봉사<div class="rank-winner-1-8"></div>
-            </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 리더십<div class="rank-winner-1-9"></div>
-            </div>
-            <div class="rank-winner-1">
-                <i class="bi bi-trophy-fill" id="trophy"></i> 끈기<div class="rank-winner-1-10"></div>
-            </div>
-
         </div>
         <!---------------------------------랭킹단상------------------------------------->
         <div class="rank-platform">
-            <div class="first-rank">정민식</div>
-            <div class="second-rank">백종환</div>
-            <div class="third-rank">김기유</div>
-        </div>
+            <div class="first-rank">
+                <table>
+                    <tr th:each="top : ${first}">
+                        <td th:text="${top.name}" style="background-color: #FFE150"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="second-rank">
+                <table>
+                    <tr th:each="second : ${second}">
+                        <td th:text="${second.name}" style="background-color: #FFE150"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="third-rank">
+                <table>
+                    <tr th:each="third : ${third}">
+                        <td th:text="${third.name}" style="background-color: #FFE150"></td>
+                    </tr>
+                </table>
+            </div>
 
+        </div>
     </article>
 
+<script>
+    document.getElementById('popupClick').addEventListener('click', function(event) {
+        let popup = document.querySelector('.popup');
+
+        // 마우스 클릭 이벤트의 발생 위치를 가져옴
+        let mouseX = event.pageX;
+        let mouseY = event.pageY;
+
+        // 팝업을 마우스 클릭 위치 옆에 표시 (예: 오른쪽 10px, 아래 10px)
+        popup.style.left = (mouseX + 40) + 'px';
+        popup.style.top = (mouseY + 20) + 'px';
+
+        // 팝업을 보이도록 설정
+        popup.style.display = 'block';
+    });
+
+    document.addEventListener('click', function (event) {
+        let popup = document.querySelector('.popup');
+
+        // 팝업 외부를 클릭하거나 팝업 자체를 클릭하지 않았을 때 팝업을 숨김
+        if (event.target !== popup && !popup.contains(event.target) && event.target !== document.getElementById('popupClick')) {
+            popup.style.display = 'none';
+        }
+    });
+</script>
 
 </body>
 </html>

@@ -44,7 +44,7 @@
     position: absolute;
     top: 5px;
     left: 50px;
-    font-size: 50px;
+    font-size: 60px;
     opacity: 1;
     text-align: center;
 }
@@ -82,7 +82,7 @@
     opacity: 1;
     position: absolute;
     top: 24px;
-    left: 580px;
+    left: 560px;
     border-radius: 30px;
     overflow: hidden;
     border: 1px solid black;
@@ -97,12 +97,11 @@
     font-size: 20px;
 }
 .ranking-page {
-    width: 600px;
+    width: 700px;
     height: 560px;
     position: absolute;
     background-color: white;
     top: 100px;
-    left: 50px;
 }
 .ranking-page-1 {
     width: 80px;
@@ -115,11 +114,15 @@
     line-height: 50px;
     text-align: center;
 }
+.ranking-page-1 p {
+    background-color: white;
+
+}
 .ranking-page-2 {
     width: 80px;
     position: absolute;
     top: 5px;
-    left: 250px;
+    left: 310px;
     color: rgba(7,98,27,1);;
     font-size: 40px;
     opacity: 1;
@@ -129,7 +132,7 @@
     width: 80px;
     position: absolute;
     top: 5px;
-    left: 450px;
+    left: 560px;
     color: rgba(7,98,27,1);;
     font-size: 40px;
     opacity: 1;
@@ -160,11 +163,11 @@
     opacity: 1;
     position: relative;
     background-color: white;
-    text-align: left;
-    left: 50px;
-    font-size: 40px;
+    text-align: center;
+    font-size: 60px;
     color: rgba(7,98,27,1);
     word-spacing: 0;
+    border: none;
 }
 .rank-winner-1 {
     width: 860px;
@@ -173,12 +176,26 @@
     position: relative;
     background-color: white;
     font-size: 40px;
-    text-align: justify;
-    left: 30px;
+    text-align: center;
+    border: 1px solid white;
 }
 #trophy {
     background-color: white;
     color: #FFE150;
+    font-size: 50px;
+}
+#ranktb {
+    align-content: center;
+    width: 750px;
+    height: 100px;
+    background-color: white;
+}
+#ranktb tr {
+    height: 80px;
+
+}
+#ranktb td {
+    background-color: white;
 }
 .rank-platform {
     width: 860px;
@@ -200,10 +217,13 @@
     color: rgba(206,156,30,1);
     position: absolute;
     top: 120px;
-    left: 330px;
+    left: 350px;
     font-size: 60px;
     opacity: 1;
     text-align: center;
+    background: rgba(255,225,80,1);
+}
+.first-rank table {
     background: rgba(255,225,80,1);
 }
 .second-rank {
@@ -211,10 +231,13 @@
     color: rgba(182,182,182,1);
     position: absolute;
     top: 140px;
-    left: 90px;
+    left: 120px;
     font-size: 60px;
     opacity: 1;
     text-align: center;
+    background: rgba(255,225,80,1);
+}
+.second-rank table {
     background: rgba(255,225,80,1);
 }
 .third-rank {
@@ -222,34 +245,68 @@
     color: rgba(206,156,30,1);
     position: absolute;
     top: 160px;
-    left: 560px;
+    left: 590px;
     font-size: 60px;
     opacity: 1;
     text-align: center;
     background: rgba(255,225,80,1);
 }
+.third-rank table {
+    background: rgba(255,225,80,1);
+}
 .studenttb {
-    width: 400px;
+    width: 500px;
     height: 500px;
     opacity: 1;
     position: absolute;
     top: 150px;
-    left: 200px;
+    left: 180px;
     overflow: hidden;
     background-color: white;
-    font-size: 50px;
+    font-size: 40px;
     display: flow;
     line-height: 30px;
     font-weight: lighter;
+    letter-spacing: 3px;
 }
 #studenttb {
-    width: 400px;
-    height: 500px;
+    width: 500px;
     background-color: white;
     text-align: center;
-
+}
+#studenttb tr {
+    height: 48.5px;
 }
 
+.popup {
+    position: fixed;
+    z-index: 11;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 70px;
+    height: 200px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.popup-div {
+    background-color: white;
+    border: 1px solid;
+    text-align: center;
+}
+.popup1-button {
+    font-size: 24px;
+    background-color: white;
+    text-align: center;
+    align-content: center;
+    cursor: pointer;
+    border:none;
+}
+
+.tema-name {
+    background-color: white;
+}
 
 
 
