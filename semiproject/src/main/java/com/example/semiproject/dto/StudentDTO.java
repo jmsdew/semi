@@ -1,32 +1,25 @@
 package com.example.semiproject.dto;
 
-public class StudentDTO {
+import java.util.Collections;
+import java.util.List;
 
+public class StudentDTO {
+    private int code;
     private String name;
     private int score;
 
     public StudentDTO() {
     }
 
-    public StudentDTO(String name, int score) {
+    public StudentDTO(int code, String name, int score) {
+        this.code = code;
         this.name = name;
         this.score = score;
     }
 
     @Override
     public String toString() {
-        return "StudentDTO{" +
-                "name='" + name + '\'' +
-                ", score=" + score +
-                '}';
-    }
-
-    public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getScore() {
@@ -35,5 +28,21 @@ public class StudentDTO {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

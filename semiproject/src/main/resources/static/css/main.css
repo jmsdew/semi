@@ -7,7 +7,7 @@
   background-color: rgba(255,225,80,1);
   opacity: 1;
   position: absolute;
-  top: 165px;
+  top: 180px;
   left: 0;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -191,26 +191,29 @@ p {
   background-color: rgba(255,225,80,1);
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   top: 10px;
 }
 .school-name-name {
-  width: 700px;
+  width: 600px;
   font-size: 40px;
   background-color: rgba(255,225,80,1);
   word-spacing:2px;
+  text-align: center;
 }
 .school-name-rank {
-  width: 450px;
+  width: 400px;
   font-size: 40px;
+  text-align: center;
   background-color: rgba(255,225,80,1);
   word-spacing:2px;
 }
+
 /********************************************좌석*********************************************************/
 
 .student-seat {
-  width: 820px;
+  width: 900px;
   height: 560px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -220,72 +223,62 @@ p {
   overflow: hidden;
   background-color: rgba(255,225,80,1);
 }
-.student-1 {
+.student-table {
+  width: 900px;
+  height: 560px;
+  position: relative;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* 자식 요소들을 여러 줄에 걸쳐 정렬 */
+  justify-content: flex-start; /* 왼쪽에서부터 정렬 */
+  align-content: flex-start;
+  background-color: rgba(255,225,80,1);
+}
+.student-name {
   width: 140px;
   height:60px;
   background: rgba(255,255,255,1);
   opacity: 1;
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  position: relative;
   border: 5px solid rgba(77,161,85,1);
   border-radius: 30px;
-  font-size: 50px;
+  font-size: 45px;
   text-align: center;
-}
-.student-2 {
-  width: 140px;
-  height: 60px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  top: 10px;
-  left: 160px;
-  position: absolute;
-  border: 5px solid rgba(77,161,85,1);
-  border-radius: 30px;
-  font-size: 50px;
-  text-align: center;
-}
-.student-3 {
-  width: 140px;
-  height: 60px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  left: 310px;
-  top: 10px;
-  position: absolute;
-  border: 5px solid rgba(77,161,85,1);
-  border-radius: 30px;
-  font-size: 50px;
-  text-align: center;
-}
-.student-4 {
-  width: 140px;
-  height: 60px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  left: 460px;
-  top: 10px;
-  position: absolute;
-  border: 5px solid rgba(77,161,85,1);
-  border-radius: 30px;
-  font-size: 50px;
-  text-align: center;
-}
-.student-5 {
-  width: 140px;
-  height: 60px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  left: 610px;
-  top: 10px;
-  position: absolute;
-  border: 5px solid rgba(77,161,85,1);
-  border-radius: 30px;
-  font-size: 50px;
-  text-align: center;
-}
+  align-content: center;
+  display: block;
+  gap: 20px;
 
+
+}
+#student-table {
+  margin: 20px;
+  width: 900px;
+  height: 560px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* 자식 요소들을 여러 줄에 걸쳐 정렬 */
+  justify-content: flex-start; /* 왼쪽에서부터 정렬 */
+  align-content: flex-start;
+  background-color: rgba(255,225,80,1);
+}
+tbody {
+  margin: 20px;
+  width: 900px;
+  height: 560px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* 자식 요소들을 여러 줄에 걸쳐 정렬 */
+  justify-content: flex-start; /* 왼쪽에서부터 정렬 */
+  align-content: flex-start;
+  background-color: rgba(255,225,80,1);
+}
+td {
+  background-color: rgba(255,225,80,1);
+  border: none;
+}
+tr {
+  background-color: rgba(255,225,80,1);
+}
 
 
 
@@ -608,6 +601,30 @@ input[type="radio"]:checked {
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid;
+}
+
+.popup1 {
+  position: fixed;
+  z-index: 11;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 70px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid;
+}
+.popup1-div {
+  align-content: center;
+
+}
+.popup1-button {
+  font-size: 20px;
+  background-color: white;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
 }
 .popup h3 {
   font-size: 40px;

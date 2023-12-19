@@ -71,15 +71,32 @@
       <button class="start-button">시작</button>
     </div>
   </section>
-  <!----------------------------------------------------%%%%쿼리문 수정하기 ( div 떼고 회원정보 연결)%%%%---------------------------------------------->
+  <!----------------------------------------------------학교정보 및 123등---------------------------------------------->
   <section class="school-info">
-    <div class="school-name" ><p class="school-name-name">구로초등학교 3학년 2반 총원 17명 결석 0명</p><p class="school-name-rank">1등 민식 2등 종환 3등 기유</p></div>
+    <div class="school-name" ><p class="school-name-name" th:text="${ school }"></p
+    ><p class="school-name-rank">랭킹 탑3</p><p class="school-name-rank" th:text="${ student }"></div>
   </section>
   <!----------------------------------------------------%%%%쿼리문 수정하기%%%%---------------------------------------------->
   <section class="student-seat">
+    <div class="student-table">
+      <table id="student-table">
+        <tr th:each="student1 : ${student2}">   <!--foreach 문 표현식-->
+          <td><button class="student-name" th:value="${student1.name}"
+                      th:text="${student1.name}" style="background-color: white; cursor: pointer"></button></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="popup1">
+      <div class="popup1-div">
+        <button class="popup1-button">착석체크</button>
+        <button class="popup1-button">칭찬하기</button>
+        <button class="popup1-button">착석취소</button>
+      </div>
+    </div>
 
   </section>
-  <!----------------------------------------------------%%%%쿼리문 수정하기%%%%---------------------------------------------->
+  <!----------------------------------------------------이미지, 교과서---------------------------------------------->
   <section class="study-ment">
     <p>공부할 준비가 되었나요?</p>
   </section>
@@ -295,7 +312,26 @@ $(document).ready(function() {
       document.querySelector('.popup').style.display = 'none';
     }
   });
+  let popup = document.querySelector('.popup1');
 
+  // 여러 학생 이름 엘리먼트에 대해 반복하여 이벤트를 등록
+  let studentNameElements = document.getElementsByClassName('student-name');
+
+  for (let i = 0; i < studentNameElements.length; i++) {
+    studentNameElements[i].addEventListener('click', function(event) {
+      // 마우스 커서 위치를 이용하여 팝업 위치 설정
+      popup.style.display = 'block';
+      popup.style.left = (event.pageX + 20) + 'px'; // 10px 오른쪽에 표시
+      popup.style.top = (event.pageY + 10) + 'px';  // 10px 아래에 표시
+    });
+  }
+
+  // 다른 곳을 클릭했을 때 팝업을 닫는 이벤트 등록
+  document.addEventListener('click', function (event) {
+    if (event.target !== popup && !popup.contains(event.target) && !event.target.classList.contains('student-name')) {
+      popup.style.display = 'none';
+    }
+  });
 
 /***********************************************************************************************/
 </script>

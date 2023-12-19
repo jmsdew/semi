@@ -2,14 +2,15 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.semiproject.model.StudentDAO">
+<mapper namespace="com.example.semiproject.model.rankDAO">
 
-    <resultMap id="schoolResult" type="com.example.semiproject.dto.StudentDTO">
-        <id property="code" column="student_code"/>
-        <result property="name" column="student_name"/>
+
+    <resultMap id="studentResult" type="com.example.semiproject.dto.RankDTO">
+        <id property="name" column="student_name"/>
         <result property="score" column="score"/>
     </resultMap>
-    <select id="studentName" resultMap="schoolResult">
+
+    <select id="studentRank" resultMap="studentResult">
         SELECT
             a.student_name,
             sum(b.score) AS score
@@ -17,16 +18,10 @@
           JOIN praise b ON (a.student_code = b.student_code)
          GROUP BY a.student_name
          ORDER BY score DESC
-         LIMIT 3;
-
+         LIMIT 10;
     </select>
 
-    <select id="allStudent" resultMap="schoolResult">
-        SELECT
-         STUDENT_NAME
-         FROM student
-         WHERE user_code =1;
+    <select id="rankTotal" resultMap="studentResult">
 
     </select>
-
 </mapper>

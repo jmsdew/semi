@@ -10,7 +10,9 @@
 
 
     <mappers>
-        <mapper resource="mapper/student/studentMapper.xml" />
+        <mapper resource="mapper/student/rankMapper.xml" />
+        <mapper resource="mapper/student/mainMapper.xml"/>
+        <mapper resource="mapper/student/studentMapper.xml"/>
     </mappers>
 
 </configuration>
