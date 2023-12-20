@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="css/rank.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 </head>
-<body>ㄴ
+<body>
+<div class="pyro">
+    <div class="before"></div>
+    <div class="after"></div>
+</div>
 <header class="navbox">
     <nav>
         <h1>
@@ -17,18 +21,18 @@
         </h1>
         <ul>
             <li>
-                <button class="ranking">
-                    <a href="rank">랭킹</a>
+                <button class="ranking" onclick="location.href='rank'">
+                    랭킹
                 </button>
             </li>
             <li>
-                <button class="calendar">
-                    <a href="#">캘린더</a>
+                <button class="calendar" onclick="location.href='calendar'">
+                    캘린더
                 </button>
             </li>
             <li>
-                <button class="student-management">
-                    <a href="#">학생관리</a>
+                <button class="student-management" onclick="location.href='management'">
+                    학생관리
                 </button>
             </li>
             <li>
@@ -39,7 +43,7 @@
         </ul>
     </nav>
 </header>
-<article class="rank" style="top: 162px">
+<article class="rank">
     <!---------------------------반 랭킹-------------------------------------->
     <div class="rank-total">
         <div class="rank-main">

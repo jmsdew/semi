@@ -14,7 +14,6 @@ a, a:link, a:visited{
     padding: 0;
     box-sizing: border-box;
     font-family:'bitbit';
-    background-color: rgba(6,97,26,1);
 }
 /*************************************************네비 바******************************************************/
 li{
@@ -64,11 +63,11 @@ header button{
 header h1 button{
     font-size: 70px;
     color: rgba(255,225,80,1);
-    background-color: rgba(6,97,26,1);
     width: 500px;
     height: 100px;
     text-align: left;
     padding-left: 1rem;
+    background-color: white;
 }
 header nav ul li button{
     font-size: 35px;
@@ -175,4 +174,82 @@ footer div div{
     font-family: JejuHallasan;
     font-weight: 400;
     word-wrap: break-word;
+}
+
+
+
+
+.schedule {
+    width: 1720px;
+    height: 800px;
+    opacity: 1;
+    position: relative;
+    top: 180px;
+    left: 100px;
+    overflow: hidden;
+    border: 1px solid black;
+    display: flex;
+}
+.calendar1 {
+    left: 100px;
+    position: relative;
+    width: 1300px;
+    height: 700px;
+    margin: 0 ;
+    align-content: center;
+    justify-content: center;
+}
+.schedule-1 {
+    font-family: Inter;
+    width: 400px;
+    height: 800px;
+    border-right: 1px solid #5b5b5b;
+    font-size: 20px;
+}
+.schedule-1 h2 {
+    font-size: 40px;
+    font-family: Inter;
+    font-weight: bold;
+    text-align: center;
+}
+
+#calendarBox{
+    width: 900px;
+    position: relative;
+    top: 20px;
+    left: 200px;
+}
+
+
+
+
+
+
+.popup-click {
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    left: 400px;
+    font-size: 50px;
+}
+
+.schedule-button{
+    width: 1200px;
+    text-align: right;
+}
+.popup {
+    position: fixed;
+    z-index: 11;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: 500px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid;
 }

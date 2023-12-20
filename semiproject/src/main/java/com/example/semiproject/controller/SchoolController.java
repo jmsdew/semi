@@ -210,4 +210,13 @@ public class SchoolController {
 
         return mv;
     }
+
+    @GetMapping("calendar")
+    public String calendar(){
+        return "calendar";
+    }
+    @GetMapping("management")
+    public String management(){
+        return "management";
+    }
 }
