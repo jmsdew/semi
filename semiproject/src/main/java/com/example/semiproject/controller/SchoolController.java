@@ -1,17 +1,15 @@
 package com.example.semiproject.controller;
 
-import com.example.semiproject.dto.MainDTO;
-import com.example.semiproject.dto.RankDTO;
-import com.example.semiproject.dto.StudentDTO;
-import com.example.semiproject.dto.TopRankDTO;
+import com.example.semiproject.dto.*;
 import com.example.semiproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/*")
@@ -219,4 +217,53 @@ public class SchoolController {
     public String management(){
         return "management";
     }
+
+
+    @PostMapping("/handleOption")
+    public ModelAndView handleOption(@RequestBody Map<String, String> requestData) {
+        String option = requestData.get("option");
+        String studentName = requestData.get("studentName");
+
+        System.out.println("Received option: " + option);
+        System.out.println("Received student name: " + studentName);
+
+        ModelAndView mv = new ModelAndView();
+        // 뷰 내용 추가하기 if 문으로
+        if(option.equals("sitDown")){
+            SitDTO sitDTO = new SitDTO();
+            sitDTO.setStudentName(studentName);
+            int sitDown = service.sitDown(sitDTO);
+            if(sitDown > 0){
+                System.out.println("성공");
+            }
+
+            mv.setViewName("/main");
+        }else if (option.equals("standUp")){
+            
+            // 칭찬에 -10점 주기
+            
+            mv.setViewName("/main");
+        }
+        return mv;
+    }
+
+    @PostMapping("/processPraise")
+    public ModelAndView processPraise(ModelAndView mv, PraiseDTO praiseDTO) {
+        int praise = service.processPraise(praiseDTO);
+        if(praise > 0){
+            System.out.println("성공");
+        }
+        mv.setViewName("/main");
+        return mv;
+    }
+    @PostMapping("/attendance")
+    public ModelAndView attendance(ModelAndView mv, AttendanceDTO attendanceDTO) {
+        int attendance = service.attendance(attendanceDTO);
+        if(attendance > 0){
+            System.out.println("성공");
+        }
+        mv.setViewName("/main");
+        return mv;
+    }
+
 }

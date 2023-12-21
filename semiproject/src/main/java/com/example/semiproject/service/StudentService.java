@@ -1,13 +1,7 @@
 package com.example.semiproject.service;
 
-import com.example.semiproject.dto.MainDTO;
-import com.example.semiproject.dto.RankDTO;
-import com.example.semiproject.dto.StudentDTO;
-import com.example.semiproject.dto.TopRankDTO;
-import com.example.semiproject.model.MainDAO;
-import com.example.semiproject.model.StudentDAO;
-import com.example.semiproject.model.TopRankDAO;
-import com.example.semiproject.model.RankDAO;
+import com.example.semiproject.dto.*;
+import com.example.semiproject.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +21,12 @@ public class StudentService {
     @Autowired
     private TopRankDAO topRankDAO;
 
+    @Autowired
+    private SitDAO sitDAO;
+    @Autowired
+    private PraiseDAO praiseDAO;
+    @Autowired
+    private AttendanceDAO attendanceDAO;
 
 
     public List<RankDTO> studentRank() {
@@ -154,4 +154,18 @@ public class StudentService {
         return tema;
     }
 
+    public int sitDown(SitDTO sitDTO) {
+        int sitDown = sitDAO.sitDown(sitDTO);
+        return sitDown;
+    }
+
+    public int processPraise(PraiseDTO praiseDTO) {
+        int praise = praiseDAO.processPraise(praiseDTO);
+        return praise;
+    }
+
+    public int attendance(AttendanceDTO attendanceDTO) {
+        int attendance = attendanceDAO.attendanceStudent(attendanceDTO);
+        return attendance;
+    }
 }

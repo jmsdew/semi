@@ -81,19 +81,72 @@
     <div class="student-table">
       <table id="student-table">
         <tr th:each="student1 : ${student2}">   <!--foreach 문 표현식-->
-          <td><button class="student-name" th:value="${student1.name}"
-                      th:text="${student1.name}" style="background-color: white; cursor: pointer"></button></td>
+          <td>  <button class="student-name"
+                        th:value="${student1.name}"
+                        th:text="${student1.name}"
+                        th:data-student-name="${student1.name}"
+                        onclick="showOptions(this)"
+                        style="background-color: white; cursor: pointer">
+          </button></td>
         </tr>
       </table>
     </div>
 
     <div class="popup1">
-      <div class="popup1-div">
-        <button class="popup1-button">착석체크</button>
-        <button class="popup1-button">칭찬하기</button>
-        <button class="popup1-button">착석취소</button>
+      <div class="popup1-div" id="options-container" style="display: none;">
+        <button class="popup1-button" onclick="handleOption('sitDown')">착석체크</button>
+        <button type="button" class="popup1-button" id="popupClick-praise">칭찬하기</button>
+        <button type="button" class="popup1-button" id="popupClick-attendance">지각결석</button>
+        <button class="popup1-button" onclick="handleOption('standUp')">착석취소</button>
       </div>
     </div>
+
+    <!--칭찬팝업-->
+      <div class="popup-2">
+        <div class="popup-2-div">
+          <h3>칭찬하기</h3>
+            <form action="#" class="content1">
+              <input type="text" name="name" class="praise-date" placeholder="이름"/>
+              <input type="date" name="date" class="praise-date"/>
+              <input type="number" name="point" class="praise-date" placeholder="점수"/>
+              <select name="category" class="praise-date">
+                <option value="1">배려</option>
+                <option value="2">사교</option>
+                <option value="3">긍정</option>
+                <option value="4">책임</option>
+                <option value="5">성실</option>
+                <option value="6">도움</option>
+                <option value="7">예의</option>
+                <option value="8">봉사</option>
+                <option value="9">리더십</option>
+                <option value="10">끈기</option>
+              </select>
+              <textarea name="praise" class="praise-text" placeholder="칭찬 내용을 써주세요"></textarea>
+              <button type="submit">등록</button>
+            </form>
+        </div>
+      </div>
+
+    <!--지각결석팝업-->
+      <div class="popup-3">
+        <div class="popup-2-div">
+          <h3>출결체크</h3>
+          <form action="#" class="content2">
+            <input type="text" name="name" class="praise-date" placeholder="이름"/>
+            <input type="date" name="date" class="praise-date"/>
+            <select name="kind" class="praise-date">
+              <option value="결석">결석</option>
+              <option value="지각">지각</option>
+              <option value="조퇴">조퇴</option>
+              <option value="결과">결과</option>
+              <option value="기타">기타</option>
+            </select>
+            <textarea name="praise" class="praise-text" placeholder="사유를 입력 해주세요"></textarea>
+            <button type="submit">등록</button>
+          </form>
+        </div>
+      </div>
+
 
   </section>
   <!----------------------------------------------------이미지, 교과서---------------------------------------------->
@@ -162,7 +215,129 @@
 
 
 <!-----------------------------------------------자바스크립트--------------------------------------------------->
-<script>
+<script type="text/javascript">
+
+
+
+  let selectedStudent = null;
+
+  function showOptions(button) {
+    // 선택된 버튼을 저장
+    selectedStudent = button;
+
+    // 특정 div를 표시하도록 스타일 변경
+    document.getElementById('options-container').style.display = 'block';
+  }
+
+  function handleOption(option) {
+    // 선택한 학생 이름을 가져옴
+    let selectedStudentName = selectedStudent.getAttribute('data-student-name');
+
+    // 선택한 옵션과 학생 이름을 사용하여 작업 수행
+    console.log("선택한 옵션:", option);
+    console.log("선택한 학생 이름:", selectedStudentName);
+
+    // 스타일 변경은 'sitDown' 옵션일 때만 수행
+    if (option === 'sitDown') {
+      // 이전에 선택된 버튼이 있다면 스타일 초기화
+      if (selectedStudent) {
+        selectedStudent.style.backgroundColor = 'white';
+      }
+
+      // 현재 선택된 버튼 스타일 변경
+      selectedStudent.style.backgroundColor = 'lightblue';
+      selectedStudent.style.border = '5px solid blue';
+    }
+    if (option === 'standUp'){
+      if (selectedStudent) {
+        selectedStudent.style.backgroundColor = 'white';
+      }
+      selectedStudent.style.backgroundColor = 'whilte';
+      selectedStudent.style.border = '5px solid rgba(77,161,85,1)';
+
+    }
+
+
+    // Ajax를 사용하여 서버에 요청을 보냅니다.
+    $.ajax({
+      type: "POST",
+      url: "/handleOption",
+      contentType: "application/json",
+      data: JSON.stringify({
+        option: option,
+        studentName: selectedStudentName
+      }),
+      success: function(response) {
+        // 서버에서의 응답을 처리합니다.
+        console.log("서버 응답:", response);
+
+        // 여기에 새로고침 없이 업데이트할 내용을 추가하세요.
+      },
+      error: function(error) {
+        console.error("에러 발생:", error);
+      }
+    });
+  }
+// ------------------------------------------------------------------- 칭찬 제출
+
+  $(document).ready(function () {
+    $(".content1").submit(function (e) {
+      e.preventDefault(); // 폼 제출 방지
+
+      // FormData 객체를 생성하여 폼 데이터를 담습니다.
+      var formData = new FormData(this);
+
+      $.ajax({
+        type: "POST",
+        url: "/processPraise", // 서버의 컨트롤러 매핑 주소
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          console.log("서버 응답:", response);
+          alert("등록완료");
+          document.querySelector('.popup-2').style.display = 'none';
+
+        },
+        error: function (error) {
+          console.error("에러 발생:", error);
+        },
+      });
+    });
+  });
+
+
+
+//---------------------------------------------------------------  출결체크
+  $(document).ready(function () {
+    $(".content2").submit(function (e) {
+      e.preventDefault(); // 폼 제출 방지
+
+      // FormData 객체를 생성하여 폼 데이터를 담습니다.
+      var formData = new FormData(this);
+
+      $.ajax({
+        type: "POST",
+        url: "/attendance", // 서버의 컨트롤러 매핑 주소
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          console.log("서버 응답:", response);
+          alert("등록완료");
+          document.querySelector('.popup-3').style.display = 'none';
+
+        },
+        error: function (error) {
+          console.error("에러 발생:", error);
+        },
+      });
+    });
+  });
+
+
+
+<!-- 총 착석 하트 -------------------------------------->
   let i = 0;
     $('i').on('click',function(){
         if(i==0){
@@ -332,6 +507,27 @@ $(document).ready(function() {
       popup.style.display = 'none';
     }
   });
+
+  /*************************** 칭찬하기, 지각결석 팝업 ***************************/
+  document.getElementById('popupClick-praise').addEventListener('click', function() {
+    document.querySelector('.popup-2').style.display = 'block';
+  });
+
+  document.addEventListener('click', function (event) {
+    if (event.target !== document.querySelector('.popup-2') && !document.querySelector('.popup-2').contains(event.target) && event.target !== document.getElementById('popupClick-praise')) {
+      document.querySelector('.popup-2').style.display = 'none';
+    }
+  });
+  document.getElementById('popupClick-attendance').addEventListener('click', function() {
+    document.querySelector('.popup-3').style.display = 'block';
+  });
+
+  document.addEventListener('click', function (event) {
+    if (event.target !== document.querySelector('.popup-3') && !document.querySelector('.popup-3').contains(event.target) && event.target !== document.getElementById('popupClick-attendance')) {
+      document.querySelector('.popup-3').style.display = 'none';
+    }
+  });
+
 
 /***********************************************************************************************/
 </script>

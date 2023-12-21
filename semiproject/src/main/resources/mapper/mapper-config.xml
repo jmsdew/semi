@@ -14,6 +14,9 @@
         <mapper resource="mapper/student/mainMapper.xml"/>
         <mapper resource="mapper/student/studentMapper.xml"/>
         <mapper resource="mapper/student/topRankMapper.xml"/>
+        <mapper resource="mapper/student/sitDownMapper.xml"/>
+        <mapper resource="mapper/student/praiseMapper.xml"/>
+        <mapper resource="mapper/student/attendanceMapper.xml"/>
     </mappers>
 
 </configuration>
