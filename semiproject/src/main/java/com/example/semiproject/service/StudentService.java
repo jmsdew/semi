@@ -27,6 +27,8 @@ public class StudentService {
     private PraiseDAO praiseDAO;
     @Autowired
     private AttendanceDAO attendanceDAO;
+    @Autowired
+    private GradeDAO gradeDAO;
 
 
     public List<RankDTO> studentRank() {
@@ -168,4 +170,21 @@ public class StudentService {
         int attendance = attendanceDAO.attendanceStudent(attendanceDTO);
         return attendance;
     }
+
+    public int standUp(SitDTO sitDTO) {
+        int standUp = sitDAO.standUp(sitDTO);
+        return standUp;
+    }
+
+    public List<GradeDTO> gradeReason(GradeDTO gradeDTO) {
+        List<GradeDTO> success = gradeDAO.gradeReason(gradeDTO);
+        return success;
+    }
+/*************************************받아오는 테마에 맞게 동적인 쿼리 작성하기*******************************************/
+    public List<RankDTO> getStudentsByKeyword(String keyword) {
+    }
+
+    public List<RankDTO> findTemaByKeyword(String keyword) {
+    }
+
 }

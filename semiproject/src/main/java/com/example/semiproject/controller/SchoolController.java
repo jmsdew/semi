@@ -1,7 +1,11 @@
 package com.example.semiproject.controller;
 
 import com.example.semiproject.dto.*;
+import com.example.semiproject.response.TemaRankResponse;
 import com.example.semiproject.service.StudentService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,11 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/*")
+@RequestMapping("/user/*")
 public class SchoolController {
 
     @Autowired
     private StudentService service;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @GetMapping("main")
     public ModelAndView main(ModelAndView mv){
@@ -54,6 +61,7 @@ public class SchoolController {
         List<RankDTO> tema = service.findTema1();
         List<RankDTO> first = service.firstRank();
         List<RankDTO> second = service.secondRank();
+
         List<RankDTO> third = service.thirdRank();
         mv.addObject("students",students);
         mv.addObject("tema",tema);
@@ -209,6 +217,18 @@ public class SchoolController {
         return mv;
     }
 
+    @GetMapping("/temaRank/{keyword}")
+    public ResponseEntity<TemaRankResponse> handleKeywordRequest(@PathVariable String keyword) {
+        TemaRankResponse response = new TemaRankResponse();
+        response.setStudents(service.getStudentsByKeyword(keyword));
+        response.setTema(service.findTemaByKeyword(keyword));
+        response.setFirst(service.firstRank());
+        response.setSecond(service.secondRank());
+        response.setThird(service.thirdRank());
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("calendar")
     public String calendar(){
         return "calendar";
@@ -239,12 +259,50 @@ public class SchoolController {
 
             mv.setViewName("/main");
         }else if (option.equals("standUp")){
-            
             // 칭찬에 -10점 주기
-            
+            SitDTO sitDTO = new SitDTO();
+            sitDTO.setStudentName(studentName);
+            int sitDown = service.standUp(sitDTO);
+            if(sitDown > 0){
+                System.out.println("성공");
+            }
             mv.setViewName("/main");
         }
         return mv;
+    }
+    
+    /*********************  비동기 테마 작성 후 완성 하기  *******************/
+    @PostMapping("/temaRank")
+    public ModelAndView handleStudentName(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+            ModelAndView mv = new ModelAndView();
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+
+            System.out.println("Received student name: " + studentName);
+            System.out.println("tema : " + tema);
+            System.out.println(gradeDTO);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            System.out.println(rankReason);
+
+
+                mv.addObject("rankReason",rankReason);
+                mv.setViewName("/temaRank");
+
+                return mv;
+
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @PostMapping("/processPraise")

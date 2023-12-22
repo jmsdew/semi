@@ -309,6 +309,10 @@
     background-color: white;
 }
 
+tbody {
+    position: relative;
+    left: 20px;
+}
 
 .pyro > .before, .pyro > .after {
     z-index: 13;

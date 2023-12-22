@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>학교종이 땡땡땡</title>
-  <link rel="stylesheet" href="css/global.css" type="text/css">
-  <link rel="stylesheet" href="css/main.css" type="text/css">
+  <link rel="stylesheet" href="/css/global.css" type="text/css">
+  <link rel="stylesheet" href="/css/main.css" type="text/css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -155,7 +155,7 @@
   </section>
 
   <section class="charactor">
-    <img id="image" src="image/v23_24.png">
+    <img id="image" src="/image/v23_24.png">
   </section>
 
   <section class="material">
@@ -172,7 +172,7 @@
 <!-----------------------------------종소리 작업------------------------------------------->
 
   <footer class="bell-sound">
-    <div class="bell-sound-icon"><img class="bell-sound-icon" src="image/bell.png"> </div>
+    <div class="bell-sound-icon"><img class="bell-sound-icon" src="/image/bell.png"> </div>
     <div class="bell-sound-ment">우리반 수업 종소리</div>
     <div class="first-bell">
       <input type="radio" name="sound" id="radio1" onclick="handleRadioClick('media/music1.mp3')"> <label for="radio1"></label>
@@ -261,7 +261,7 @@
     // Ajax를 사용하여 서버에 요청을 보냅니다.
     $.ajax({
       type: "POST",
-      url: "/handleOption",
+      url: "/user/handleOption",
       contentType: "application/json",
       data: JSON.stringify({
         option: option,
@@ -285,11 +285,11 @@
       e.preventDefault(); // 폼 제출 방지
 
       // FormData 객체를 생성하여 폼 데이터를 담습니다.
-      var formData = new FormData(this);
+      let formData = new FormData(this);
 
       $.ajax({
         type: "POST",
-        url: "/processPraise", // 서버의 컨트롤러 매핑 주소
+        url: "/user/processPraise", // 서버의 컨트롤러 매핑 주소
         data: formData,
         contentType: false,
         processData: false,
@@ -314,11 +314,11 @@
       e.preventDefault(); // 폼 제출 방지
 
       // FormData 객체를 생성하여 폼 데이터를 담습니다.
-      var formData = new FormData(this);
+      let formData = new FormData(this);
 
       $.ajax({
         type: "POST",
-        url: "/attendance", // 서버의 컨트롤러 매핑 주소
+        url: "/user/attendance", // 서버의 컨트롤러 매핑 주소
         data: formData,
         contentType: false,
         processData: false,
