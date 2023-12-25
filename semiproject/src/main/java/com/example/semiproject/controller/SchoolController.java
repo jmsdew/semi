@@ -225,6 +225,7 @@ public class SchoolController {
         response.setFirst(service.firstRank());
         response.setSecond(service.secondRank());
         response.setThird(service.thirdRank());
+        System.out.println(response);
 
         return ResponseEntity.ok(response);
     }
