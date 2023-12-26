@@ -13,6 +13,8 @@
     </resultMap>
     <select id="gradeReason" resultMap="schoolResult">
         SELECT
+            B.student_name,
+            c.category_name,
             A.score ,
             A.praise_context ,
             A.praise_date

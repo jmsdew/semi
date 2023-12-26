@@ -1,7 +1,6 @@
 package com.example.semiproject.controller;
 
 import com.example.semiproject.dto.*;
-import com.example.semiproject.response.TemaRankResponse;
 import com.example.semiproject.service.StudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -61,14 +60,13 @@ public class SchoolController {
         List<RankDTO> tema = service.findTema1();
         List<RankDTO> first = service.firstRank();
         List<RankDTO> second = service.secondRank();
-
         List<RankDTO> third = service.thirdRank();
         mv.addObject("students",students);
         mv.addObject("tema",tema);
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank1");
 
         return mv;
     }
@@ -84,7 +82,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank2");
 
         return mv;
     }
@@ -100,7 +98,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank3");
 
         return mv;
     }
@@ -116,7 +114,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank4");
 
         return mv;
     }
@@ -132,7 +130,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank5");
 
         return mv;
     }
@@ -148,7 +146,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank6");
 
         return mv;
     }
@@ -164,7 +162,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank7");
 
         return mv;
     }
@@ -180,7 +178,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank8");
 
         return mv;
     }
@@ -196,7 +194,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank9");
 
         return mv;
     }
@@ -212,23 +210,11 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/temaRank");
+        mv.setViewName("/tema/temaRank10");
 
         return mv;
     }
 
-    @GetMapping("/temaRank/{keyword}")
-    public ResponseEntity<TemaRankResponse> handleKeywordRequest(@PathVariable String keyword) {
-        TemaRankResponse response = new TemaRankResponse();
-        response.setStudents(service.getStudentsByKeyword(keyword));
-        response.setTema(service.findTemaByKeyword(keyword));
-        response.setFirst(service.firstRank());
-        response.setSecond(service.secondRank());
-        response.setThird(service.thirdRank());
-        System.out.println(response);
-
-        return ResponseEntity.ok(response);
-    }
 
     @GetMapping("calendar")
     public String calendar(){
@@ -271,40 +257,199 @@ public class SchoolController {
         }
         return mv;
     }
-    
-    /*********************  비동기 테마 작성 후 완성 하기  *******************/
-    @PostMapping("/temaRank")
-    public ModelAndView handleStudentName(@RequestBody String jsonString) {
+
+    @PostMapping("/temaRank1")
+    public ResponseEntity<List<GradeDTO>> handleStudentName(@RequestBody String jsonString) {
         // JSON 문자열을 JsonNode로 파싱
         try {
             JsonNode jsonNode = objectMapper.readTree(jsonString);
-            ModelAndView mv = new ModelAndView();
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+
+            System.out.println("Received student name: " + studentName);
+            System.out.println("tema: " + tema);
+            System.out.println(gradeDTO);
+
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            System.out.println(rankReason);
+
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/temaRank2")
+    public ResponseEntity<List<GradeDTO>> handleStudentName2(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
             String studentName = jsonNode.get("studentName").asText();
             String tema = jsonNode.get("tema").asText();
             tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
             GradeDTO gradeDTO = new GradeDTO();
             gradeDTO.setName(studentName);
             gradeDTO.setTema(tema);
-
-            System.out.println("Received student name: " + studentName);
-            System.out.println("tema : " + tema);
-            System.out.println(gradeDTO);
             List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
-            System.out.println(rankReason);
-
-
-                mv.addObject("rankReason",rankReason);
-                mv.setViewName("/temaRank");
-
-                return mv;
-
-
+            return ResponseEntity.ok(rankReason);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-
-
     }
+    @PostMapping("/temaRank3")
+    public ResponseEntity<List<GradeDTO>> handleStudentName3(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/temaRank4")
+    public ResponseEntity<List<GradeDTO>> handleStudentName4(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/temaRank5")
+    public ResponseEntity<List<GradeDTO>> handleStudentName5(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/temaRank6")
+    public ResponseEntity<List<GradeDTO>> handleStudentName6(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/temaRank7")
+    public ResponseEntity<List<GradeDTO>> handleStudentName7(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/temaRank8")
+    public ResponseEntity<List<GradeDTO>> handleStudentName8(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/temaRank9")
+    public ResponseEntity<List<GradeDTO>> handleStudentName9(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/temaRank10")
+    public ResponseEntity<List<GradeDTO>> handleStudentName10(@RequestBody String jsonString) {
+        // JSON 문자열을 JsonNode로 파싱
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            String studentName = jsonNode.get("studentName").asText();
+            String tema = jsonNode.get("tema").asText();
+            tema = tema.replaceAll("\\[", "").replaceAll("\\]", "");
+            GradeDTO gradeDTO = new GradeDTO();
+            gradeDTO.setName(studentName);
+            gradeDTO.setTema(tema);
+            List<GradeDTO> rankReason = service.gradeReason(gradeDTO);
+            return ResponseEntity.ok(rankReason);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
 
     @PostMapping("/processPraise")
     public ModelAndView processPraise(ModelAndView mv, PraiseDTO praiseDTO) {

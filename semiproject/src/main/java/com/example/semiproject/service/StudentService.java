@@ -180,15 +180,7 @@ public class StudentService {
         List<GradeDTO> success = gradeDAO.gradeReason(gradeDTO);
         return success;
     }
-/*************************************받아오는 테마에 맞게 동적인 쿼리 작성하기*******************************************/
-    public List<RankDTO> getStudentsByKeyword(String keyword) {
-        List<RankDTO> student = rankDAO.temaRank1();
-        return student;
-    }
 
-    public List<RankDTO> findTemaByKeyword(String keyword) {
-        List<RankDTO> student = rankDAO.temaRank1();
-        return student;
-    }
+
 
 }
