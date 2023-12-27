@@ -18,6 +18,7 @@
         <mapper resource="mapper/student/praiseMapper.xml"/>
         <mapper resource="mapper/student/attendanceMapper.xml"/>
         <mapper resource="mapper/student/gradeMapper.xml"/>
+        <mapper resource="mapper/student/calendarMapper.xml"/>
     </mappers>
 
 </configuration>

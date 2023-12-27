@@ -5,6 +5,7 @@ import com.example.semiproject.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.Objects;
 
@@ -29,6 +30,8 @@ public class StudentService {
     private AttendanceDAO attendanceDAO;
     @Autowired
     private GradeDAO gradeDAO;
+    @Autowired
+    private CalendarDAO calendarDAO;
 
 
     public List<RankDTO> studentRank() {
@@ -182,5 +185,18 @@ public class StudentService {
     }
 
 
+    public int calendarSave(List<CalendarDTO> calendarEvents) {
+        int calendarsave = calendarDAO.calendarSave(calendarEvents);
+        return calendarsave;
+    }
 
+    public List<CalendarDTO> eventData() {
+        List<CalendarDTO> data = calendarDAO.eventData();
+        return data;
+    }
+
+    public List<CalendarDTO> eventToday() {
+        List<CalendarDTO> today = calendarDAO.eventToday();
+        return today;
+    }
 }
