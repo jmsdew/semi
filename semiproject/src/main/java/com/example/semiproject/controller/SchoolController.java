@@ -28,6 +28,7 @@ public class SchoolController {
 
 
 
+
     @GetMapping("main")
     public ModelAndView main(ModelAndView mv){
         List<MainDTO> school = service.userSchool();
