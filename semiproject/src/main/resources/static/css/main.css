@@ -561,6 +561,20 @@ input[type="radio"]:checked {
   border-bottom-right-radius: 100px;
   overflow: hidden;
 }
+.six-bell {
+  width: 180px;
+  height: 50px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 15px;
+  left: 1650px;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  overflow: hidden;
+}
 
 .show-popup {
   width: 180px;
