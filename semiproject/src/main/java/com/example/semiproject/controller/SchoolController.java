@@ -5,6 +5,7 @@ import com.example.semiproject.service.StudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -503,5 +505,30 @@ public class SchoolController {
         return mv;
     }
 
+    @PostMapping("/userInfo")
+    public ModelAndView userInfo(ModelAndView mv, UserInfoDTO userInfoDTO, HttpSession session){
+        Object a = session.getAttribute("userCodes");
+        String b = a.toString();
+        int userCode = Integer.parseInt(b);
+        int info = service.userInfor(userInfoDTO,userCode);
+        if(info > 0){
+            System.out.println("성공");
+        }
+        mv.setViewName("/main/main");
+        return mv;
+    }
+
+    @PostMapping("/studentInfo")
+    public ModelAndView studentInfo(ModelAndView mv,String name, HttpSession session){
+        Object a = session.getAttribute("userCodes");
+        String b = a.toString();
+        int userCode = Integer.parseInt(b);
+        String[] name1 = name.split(",");
+        List<String> names = Arrays.asList(name1);
+        System.out.println(names);
+        int info = service.studentInfo(names,userCode);
+        mv.setViewName("/main/main");
+        return mv;
+    }
 
 }

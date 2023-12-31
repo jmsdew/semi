@@ -32,6 +32,8 @@ public class StudentService {
     private GradeDAO gradeDAO;
     @Autowired
     private CalendarDAO calendarDAO;
+    @Autowired
+    private UserInfoDAO userInfoDAO;
 
 
     public List<RankDTO> studentRank() {
@@ -198,5 +200,15 @@ public class StudentService {
     public List<CalendarDTO> eventToday() {
         List<CalendarDTO> today = calendarDAO.eventToday();
         return today;
+    }
+
+    public int userInfor(UserInfoDTO userInfoDTO, int userCode) {
+        int insert = userInfoDAO.userInfor(userInfoDTO, userCode);
+        return insert;
+    }
+
+    public int studentInfo(List<String> names, int userCode) {
+        int insert = userInfoDAO.studentInfo(names,userCode);
+        return insert;
     }
 }
