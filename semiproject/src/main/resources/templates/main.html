@@ -250,6 +250,12 @@
 
     // 특정 div를 표시하도록 스타일 변경
     document.getElementById('options-container').style.display = 'block';
+    let studentName = selectedStudent.getAttribute('data-student-name');
+    console.log(studentName);
+
+    // 칭찬하기 팝업의 이름 입력 필드에 학생 이름 채우기
+    document.querySelector('.popup-2 [name="name"]').value = studentName;
+    document.querySelector('.popup-3 [name="name"]').value = studentName;
   }
 
   function handleOption(option) {
@@ -263,17 +269,63 @@
     // 스타일 변경은 'sitDown' 옵션일 때만 수행
     if (option === 'sitDown') {
       // 이전에 선택된 버튼이 있다면 스타일 초기화
-      if (selectedStudent) {
-        selectedStudent.style.backgroundColor = 'white';
-      }
+      if (selectedStudent.style.backgroundColor === 'white'){
+        if (selectedStudent) {
+          selectedStudent.style.backgroundColor = 'white';
+        }
+        // Ajax를 사용하여 서버에 요청을 보냅니다.
+        $.ajax({
+          type: "POST",
+          url: "/main/handleOption",
+          contentType: "application/json",
+          data: JSON.stringify({
+            option: option,
+            studentName: selectedStudentName
+          }),
+          success: function(response) {
+            // 서버에서의 응답을 처리합니다.
+            console.log("서버 응답:", response);
 
+            // 여기에 새로고침 없이 업데이트할 내용을 추가하세요.
+          },
+          error: function(error) {
+            console.error("에러 발생:", error);
+          }
+        });
+      }else {
+        alert("이미 착석하였습니다.")
+      }
       // 현재 선택된 버튼 스타일 변경
       selectedStudent.style.backgroundColor = 'lightblue';
       selectedStudent.style.border = '5px solid blue';
     }
     if (option === 'standUp'){
-      if (selectedStudent) {
-        selectedStudent.style.backgroundColor = 'white';
+
+      if (selectedStudent.style.backgroundColor === 'lightblue'){
+        if (selectedStudent) {
+          selectedStudent.style.backgroundColor = 'white';
+        }
+        // Ajax를 사용하여 서버에 요청을 보냅니다.
+        $.ajax({
+          type: "POST",
+          url: "/main/handleOption",
+          contentType: "application/json",
+          data: JSON.stringify({
+            option: option,
+            studentName: selectedStudentName
+          }),
+          success: function(response) {
+            // 서버에서의 응답을 처리합니다.
+            console.log("서버 응답:", response);
+
+            // 여기에 새로고침 없이 업데이트할 내용을 추가하세요.
+          },
+          error: function(error) {
+            console.error("에러 발생:", error);
+          }
+        });
+      }else {
+        alert("이미 취소하셨습니다.")
       }
       selectedStudent.style.backgroundColor = 'whilte';
       selectedStudent.style.border = '5px solid rgba(77,161,85,1)';
@@ -281,27 +333,9 @@
     }
 
 
-    // Ajax를 사용하여 서버에 요청을 보냅니다.
-    $.ajax({
-      type: "POST",
-      url: "/user/handleOption",
-      contentType: "application/json",
-      data: JSON.stringify({
-        option: option,
-        studentName: selectedStudentName
-      }),
-      success: function(response) {
-        // 서버에서의 응답을 처리합니다.
-        console.log("서버 응답:", response);
 
-        // 여기에 새로고침 없이 업데이트할 내용을 추가하세요.
-      },
-      error: function(error) {
-        console.error("에러 발생:", error);
-      }
-    });
   }
-// ------------------------------------------------------------------- 칭찬 제출
+  // ------------------------------------------------------------------- 칭찬 제출
 
   $(document).ready(function () {
     $(".content1").submit(function (e) {
@@ -312,7 +346,7 @@
 
       $.ajax({
         type: "POST",
-        url: "/user/processPraise", // 서버의 컨트롤러 매핑 주소
+        url: "/main/processPraise", // 서버의 컨트롤러 매핑 주소
         data: formData,
         contentType: false,
         processData: false,
@@ -331,7 +365,7 @@
 
 
 
-//---------------------------------------------------------------  출결체크
+  //---------------------------------------------------------------  출결체크
   $(document).ready(function () {
     $(".content2").submit(function (e) {
       e.preventDefault(); // 폼 제출 방지
@@ -341,7 +375,7 @@
 
       $.ajax({
         type: "POST",
-        url: "/user/attendance", // 서버의 컨트롤러 매핑 주소
+        url: "/main/attendance", // 서버의 컨트롤러 매핑 주소
         data: formData,
         contentType: false,
         processData: false,
@@ -357,7 +391,6 @@
       });
     });
   });
-
   //-----------------------------------------------------------초기정보등록 - 학교
 
   $(document).ready(function () {
@@ -437,31 +470,31 @@
     });
   });
 
-<!-- 총 착석 하트 -------------------------------------->
+  <!-- 총 착석 하트 -------------------------------------->
   let i = 0;
-    $('i').on('click',function(){
-        if(i==0){
-            $(this).attr('class','bi-heart-fill');
-            i++;
-        }else if(i==1){
-            $(this).attr('class','bi-heart');
-            i--;
-        }
+  $('i').on('click',function(){
+    if(i==0){
+      $(this).attr('class','bi-heart-fill');
+      i++;
+    }else if(i==1){
+      $(this).attr('class','bi-heart');
+      i--;
+    }
 
-    });
+  });
 
-$(document).ready(function() {
+  $(document).ready(function() {
     let i = 0;
     $("#plusButton").click(function() {
       // ".classbox"를 복제하여 추가합니다.
       let clonedBox = $(".class-box").first().clone();
       // 복제된 박스 안에 있는 교시 번호를 갱신합니다.
 
-     // 시간 관련 함수
-     function time(i) {
-    const times = ["09:50", "10:50", "12:30", "01:20", "02:00", "02:50"];
-    return i < times.length ? times[i] : null;   // 3항 연산자
-    }
+      // 시간 관련 함수
+      function time(i) {
+        const times = ["09:50", "10:50", "12:30", "01:20", "02:00", "02:50"];
+        return i < times.length ? times[i] : null;   // 3항 연산자
+      }
       clonedBox.find("#timeFont").val(i+2 + "교시 " + time(i));
 
       let iconClone = clonedBox.find(".bi-heart").clone();
@@ -492,106 +525,136 @@ $(document).ready(function() {
     // 초기화 단계에서도 클릭 이벤트 처리
     handleHeartClick($(".classbox"));
   });
-//  --------------------------------------------------------------------------------------------타이머조정
-  let SetTime = 600; // 테스트를 위해 시간을 10초로 설정
-  let tid; // 타이머 ID
-  let audio = new Audio();
-  let selectedSound = null;
+  //  --------------------------------------------------------------------------------------------타이머조정
 
+  // 타이머 초기값 설정 (테스트를 위해 600초, 즉 10분으로 설정)
+  let SetTime = 600;
+  let tid; // 타이머 ID
+  let audio = new Audio(); // 음원 재생을 위한 Audio 객체 생성
+  let selectedSound = null; // 선택된 사운드를 저장할 변수
+
+  // 시간을 두 자리 숫자로 변환하는 함수 (e.g., 5 -> "05")
   function formatTime(time) {
     return time < 10 ? "0" + time : time;
   }
 
+  // 타이머 메시지를 갱신하는 함수
   function msg_time() {
-    let minutes = Math.floor(SetTime / 60);
-    let seconds = SetTime % 60;
+    let minutes = Math.floor(SetTime / 60); // 분 계산
+    let seconds = SetTime % 60; // 초 계산
 
+    // 시간을 두 자리 숫자 형식으로 변환
     let formattedMinutes = formatTime(minutes);
     let formattedSeconds = formatTime(seconds);
 
-    let msg = formattedMinutes + " : " + formattedSeconds;
+    let msg = formattedMinutes + " : " + formattedSeconds; // 시간 메시지 생성
 
-    if (SetTime <= 3) {
+    // 남은 시간이 3분 이하일 때 글자 색상을 빨간색으로 변경
+    if (SetTime <= 180) {
       document.getElementById('viewTimer').classList.add('red-text');
     }
 
+    // HTML 요소에 시간 메시지 출력
     document.getElementById('viewTimer').innerHTML = msg;
-    SetTime--;
+    SetTime--; // 1초 감소
 
+    // 타이머가 종료되면 clearInterval을 통해 타이머 정지 후 사운드 재생
     if (SetTime < 0) {
       clearInterval(tid);
       playSound();
     }
   }
 
+  // 타이머 시작 함수
   function TimerStart() {
-    tid = setInterval(msg_time, 1000);
+    const cookieStartTime = getCookie('timerStartTime'); // 쿠키에서 시작 시간을 가져옴
+    const currentTime = new Date().getTime(); // 현재 시간
 
-    // 새로고침 시 세션 스토리지에서 시작 시간을 가져와서 타이머 초기화
-    const startTimeString = sessionStorage.getItem('timerStartTime');
-
-    if (startTimeString) {
-      const startTime = parseInt(startTimeString, 10);
-      const currentTime = new Date().getTime();
-      const elapsedTime = Math.floor((currentTime - startTime) / 1000);
-
-      // 시작 시간부터 현재까지의 경과 시간을 기반으로 타이머 초기 설정
+    if (cookieStartTime) {
+      // 시작 시간이 쿠키에 저장되어 있을 경우 경과 시간 계산하여 타이머 설정
+      const elapsedTime = Math.floor((currentTime - cookieStartTime) / 1000);
       SetTime = Math.max(0, 600 - elapsedTime);
+    } else {
+      // 시작 시간이 없으면 초기값으로 타이머 설정하고 쿠키에 시작 시간 저장
+      SetTime = 600;
+      setCookie('timerStartTime', currentTime);
     }
+
+    tid = setInterval(msg_time, 1000); // 1초마다 msg_time 함수 호출
   }
 
+  // 사운드 재생 함수
   function playSound() {
     if (selectedSound !== null) {
-      audio.src = selectedSound;
-      audio.play();
+      audio.src = selectedSound; // 선택된 사운드 설정
+      audio.play(); // 사운드 재생
     }
   }
 
+  // 시작 버튼 클릭 시 타이머 초기화 및 시작
   $(".start-button").click(function () {
     clearInterval(tid);
-    SetTime = 600;
-    const setTime = sessionStorage.setItem('timerStartTime', new Date().getTime());
+    SetTime = 600; // 타이머를 10분(600초)으로 초기화
+    const currentTime = new Date().getTime();
+    setCookie('timerStartTime', currentTime); // 쿠키에 시작 시간을 설정
     document.getElementById('viewTimer').classList.remove('red-text');
     TimerStart();
   });
-
+  // 라디오 버튼 클릭 시 선택된 사운드 저장
   function handleRadioClick(sound) {
     selectedSound = sound;
   }
 
-  // 페이지 로딩 시에 시작 시간을 확인하여 타이머를 계속함
+  // 페이지 로딩 시 타이머 시작
   window.onload = function () {
     TimerStart();
   };
+
+  // 쿠키 설정 함수
+  function setCookie(name, value) {
+    document.cookie = `${name}=${value}; path=/`;
+  }
+
+  // 쿠키 가져오기 함수
+  function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split('=');
+      if (cookieName.trim() === name) {
+        return parseInt(cookieValue);
+      }
+    }
+    return null;
+  }
 
 
   // -----------------------------------------------------------------------타이머
 
   function play1(){
-    let audio = new Audio('media/music1.mp3');
+    let audio = new Audio('/media/music1.mp3');
     audio.play();
   }
   function play2(){
-    let audio = new Audio('media/2번종소리.mp3');
+    let audio = new Audio('/media/2번종소리.mp3');
     audio.play();
   }
   function play3(){
-    let audio = new Audio('media/3번종소리.mp3');
+    let audio = new Audio('/media/3번종소리.mp3');
     audio.play();
   }
   function play4(){
-    let audio = new Audio('media/4번종소리.mp3');
+    let audio = new Audio('/media/4번종소리.mp3');
     audio.play();
   }
   function play5(){
-    let audio = new Audio('media/전우.mp4');
+    let audio = new Audio('/media/전우.mp4');
     audio.play();
   }
   function play6(){
     let audio = new Audio('media/생일축하.mp3');
     audio.play();
   }
-/**************************************** 설정버튼 만들기 ******************************************************/
+  /**************************************** 설정버튼 만들기 ******************************************************/
 
   document.getElementById('popupClick').addEventListener('click', function() {
     document.querySelector('.popup').style.display = 'block';
@@ -602,6 +665,7 @@ $(document).ready(function() {
       document.querySelector('.popup').style.display = 'none';
     }
   });
+
   let popup = document.querySelector('.popup1');
 
   // 여러 학생 이름 엘리먼트에 대해 반복하여 이벤트를 등록
@@ -644,7 +708,8 @@ $(document).ready(function() {
   });
 
 
-/***********************************************************************************************/
+
+  /***********************************************************************************************/
 </script>
 </body>
 </html>
