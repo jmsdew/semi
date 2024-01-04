@@ -25,6 +25,10 @@
     background-color: white;
     cursor: pointer;
 }
+.user-login {
+    width: 100px;
+    height: 30px;
+}
 .main-title {
     width: 700px;
     height: 471px;
