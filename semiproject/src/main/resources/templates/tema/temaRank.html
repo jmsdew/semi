@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>학교 종이 땡땡땡</title>
+    <link rel="icon" type="image/png" href="/favicon/favicon.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/global.css" type="text/css">
     <link rel="stylesheet" href="/css/rank.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -15,29 +18,29 @@
 <header class="navbox">
     <nav>
         <h1>
-            <button class="main">
-                <a href="main">학교종이 땡땡땡</a>
+            <button class="main" onclick="location.href='/main/main'">
+                학교종이 땡땡땡
             </button>
         </h1>
         <ul>
             <li>
-                <button class="ranking" onclick="location.href='rank'">
+                <button class="ranking" onclick="location.href='/rank/rank'">
                     랭킹
                 </button>
             </li>
             <li>
-                <button class="calendar" onclick="location.href='calendar'">
+                <button class="calendar" onclick="location.href='/calendar/calendar'">
                     캘린더
                 </button>
             </li>
             <li>
-                <button class="student-management" onclick="location.href='management'">
+                <button class="student-management" onclick="location.href='/management/student_manage'">
                     학생관리
                 </button>
             </li>
             <li>
-                <button class="mypage">
-                    <a href="#">마이페이지</a>
+                <button class="mypage" onclick="location.href='/school/mypage_info'">
+                    마이페이지
                 </button>
             </li>
         </ul>
@@ -94,7 +97,7 @@
             <button class="popup1-button" onclick="location.href='temaRank10'">끈기</button>
         </div>
     </div>
-    <!-----------------------------테마별 1등---------------------------------------->
+    <!-----------------------------칭찬내용---------------------------------------->
     <div class="rank-winner">
         <div class="rank-box">칭찬 받은 내용</div>
         <div id="rankTableContainer">
@@ -135,14 +138,14 @@
 
 <script>
 
-    // 학생 이름을 서버로 전송하는 함수
+    // 학생 이름을 서버로 전송하는 함수  ResponseEntity<List<>>로 받고 있음
     function sendStudentName(button) {
         // 선택된 버튼에서 데이터 속성(data-student-name)을 읽어옴
         let studentName = button.getAttribute("data-student-name");
         let tema = button.getAttribute("data-tema");
 
         // Fetch API를 사용하여 서버로 데이터 전송
-        fetch("/user/temaRank2", {
+        fetch("/rank/temaRank", {
             method: 'POST', // HTTP POST 요청
             headers: {
                 'Content-Type': 'application/json', // JSON 형태의 데이터 전송을 지정
@@ -177,45 +180,13 @@
                     cell3.textContent = item.date;
                 });
 
-                // 여기에서 필요한 작업을 수행하고 페이지를 갱신하거나 다른 동작을 수행할 수 있습니다.
-            })
-            .catch(error => {
-                console.error("에러 발생:", error);
-            });
-    }
-    function fetchData() {
-        fetch("/user/temaRank2")
-            .then(response => response.json())
-            .then(data => {
-                // 데이터를 받아와서 HTML에 추가하는 로직
-                console.log(data);
-                const tableContainer = document.getElementById("rankTableContainer");
-                const table = document.getElementById("ranktb");
 
-                // 기존 테이블 내용을 비움
-                while (table.rows.length > 1) {
-                    table.deleteRow(1);
-                }
-
-                data.forEach(rank1 => {
-                    const row = table.insertRow();
-                    const cell1 = row.insertCell(0);
-                    const cell2 = row.insertCell(1);
-                    const cell3 = row.insertCell(2);
-
-                    // 데이터를 각 셀에 삽입
-                    cell1.textContent = rank1.point;
-                    cell2.textContent = rank1.reason;
-                    cell3.textContent = rank1.date;
-                });
             })
             .catch(error => {
                 console.error("에러 발생:", error);
             });
     }
 
-    // 페이지 로드 시 데이터를 가져와서 출력
-    document.addEventListener("DOMContentLoaded", fetchData);
 
 
     document.getElementById('popupClick').addEventListener('click', function(event) {

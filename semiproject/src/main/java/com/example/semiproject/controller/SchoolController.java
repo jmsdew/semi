@@ -73,7 +73,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank1");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -89,7 +89,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank2");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -105,7 +105,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank3");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -121,7 +121,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank4");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -137,7 +137,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank5");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -153,7 +153,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank6");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -169,7 +169,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank7");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -185,7 +185,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank8");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -201,7 +201,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank9");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
@@ -217,7 +217,7 @@ public class SchoolController {
         mv.addObject("first",first);
         mv.addObject("second",second);
         mv.addObject("third",third);
-        mv.setViewName("/tema/temaRank10");
+        mv.setViewName("/tema/temaRank");
 
         return mv;
     }
